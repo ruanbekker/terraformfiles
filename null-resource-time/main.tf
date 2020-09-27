@@ -1,4 +1,8 @@
-resource "null_resource" "previous" {}
+resource "null_resource" "previous" {
+  provisioner "local-exec" {
+    command = "echo 'foo' > file.txt"
+  }
+}
 
 resource "time_sleep" "wait_30_seconds" {
   depends_on = [null_resource.previous]
