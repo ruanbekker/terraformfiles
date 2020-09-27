@@ -25,6 +25,12 @@ $ terraform plan
 $ terraform apply
 ```
 
+To clean up:
+
+```
+$ terraform destroy -auto-approve
+```
+
 Resources:
 
 - https://github.com/dmacvicar/terraform-provider-libvirt
