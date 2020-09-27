@@ -1,4 +1,4 @@
-## Terraform with KVM example
+# Terraform with KVM example
 
 Install terraform:
 
