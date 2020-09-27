@@ -16,11 +16,11 @@ resource "libvirt_volume" "ubuntu-qcow2" {
 }
 
 data "template_file" "user_data" {
-  template = file("${path.module}/cloud_init.yml")
+  template = file("${path.module}/config/cloud_init.yml")
 }
 
 data "template_file" "network_config" {
-  template = file("${path.module}/network_config.yml")
+  template = file("${path.module}/config/network_config.yml")
 }
 
 resource "libvirt_cloudinit_disk" "commoninit" {
