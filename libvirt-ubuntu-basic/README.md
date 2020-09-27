@@ -24,3 +24,8 @@ $ terraform init
 $ terraform plan
 $ terraform apply
 ```
+
+Resources:
+
+- https://github.com/dmacvicar/terraform-provider-libvirt
+- https://gist.github.com/ruanbekker/2ad1aa0bf761adca55002df52ad5c02d
