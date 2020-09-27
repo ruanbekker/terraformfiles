@@ -1,0 +1,24 @@
+---
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html#examples
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+
+    - name: Enable service nginx and ensure it is not masked
+      systemd:
+        name: nginx
+        enabled: yes
+        masked: no
+
+    - name: ensure nginx is started
+      systemd:
+        state: started
+        name: nginx
