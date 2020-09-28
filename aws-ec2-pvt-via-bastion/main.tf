@@ -2,7 +2,6 @@ resource "aws_instance" "my_instance" {
   ami                         = data.aws_ami.latest_ubuntu.id
   instance_type               = "t2.micro"
   subnet_id                   = local.instance_subnet_id
-  iam_instance_profile        = aws_iam_instance_profile.my_instance_profile.name
   key_name                    = "my_key"
   vpc_security_group_ids      = ["${aws_security_group.this_sg.id}"]
   associate_public_ip_address = false
