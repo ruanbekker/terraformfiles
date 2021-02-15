@@ -1,0 +1,4 @@
+# ignore terraform sensitive data
+infra/.terraform/*
+infra/*.tfstate
+infra/*.tfstate.*

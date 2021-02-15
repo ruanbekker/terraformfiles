@@ -1,0 +1,33 @@
+[
+    {
+      "name": "${container_name}",
+      "image": "${image}",
+      "memoryReservation": ${reserved_task_memory},
+      "portMappings": [
+        {
+          "containerPort": ${container_port},
+          "hostPort": ${host_port}
+        }
+      ],
+      "environment": [
+        {
+          "name": "AWS_DEFAULT_REGION",
+          "value": "eu-west-1"
+        }
+      ],
+      "secrets": [
+        {
+            "name": "APPLICATION_SECRET",
+            "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/APPLICATION_SECRET"
+        }
+      ],
+      "networkMode": "bridge",
+      "essential": true,
+      "placementConstraints": [
+        {
+            "type": "memberOf",
+            "expression": "attribute:environment == ${environment_name}"
+        }
+      ]
+    }
+  ]

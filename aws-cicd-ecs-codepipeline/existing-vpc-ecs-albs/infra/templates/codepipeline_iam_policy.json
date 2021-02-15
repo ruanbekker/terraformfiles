@@ -1,0 +1,98 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect":"Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:GetBucketVersioning",
+          "s3:List*",
+          "s3:PutObject",
+          "s3:PutObjectAcl"
+        ],
+        "Resource": [
+          "${codepipeline_bucket_arn}",
+          "${codepipeline_bucket_arn}/*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "codebuild:BatchGetBuilds",
+          "codebuild:StartBuild"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Action": [
+          "ecs:*",
+          "events:DescribeRule",
+          "events:DeleteRule",
+          "events:ListRuleNamesByTarget",
+          "events:ListTargetsByRule",
+          "events:PutRule",
+          "events:PutTargets",
+          "events:RemoveTargets",
+          "iam:ListAttachedRolePolicies",
+          "iam:ListInstanceProfiles",
+          "iam:ListRoles",
+          "logs:CreateLogGroup",
+          "logs:DescribeLogGroups",
+          "logs:FilterLogEvents"
+        ],
+        "Resource": "*",
+        "Effect": "Allow"
+      },
+      {
+        "Action": "iam:PassRole",
+        "Effect": "Allow",
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "StringLike": {
+            "iam:PassedToService": "ecs-tasks.amazonaws.com"
+          }
+        }
+      },
+      {
+        "Action": "iam:PassRole",
+        "Effect": "Allow",
+        "Resource": [
+          "arn:aws:iam::*:role/ecsInstanceRole*"
+        ],
+        "Condition": {
+          "StringLike": {
+            "iam:PassedToService": [
+              "ec2.amazonaws.com",
+              "ec2.amazonaws.com.cn"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": "iam:CreateServiceLinkedRole",
+        "Resource": "*",
+        "Condition": {
+          "StringLike": {
+            "iam:AWSServiceName": [
+              "ecs.amazonaws.com",
+              "spot.amazonaws.com",
+              "spotfleet.amazonaws.com"
+            ]
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "codestar-connections:UseConnection"
+        ],
+        "Resource": [
+          "*"
+        ]
+      }
+    ]
+  }
