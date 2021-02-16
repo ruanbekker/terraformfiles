@@ -11,6 +11,7 @@
           "logs:CreateLogStream",
           "logs:PutLogEvents",
           "ecr:GetAuthorizationToken",
+          "ecr:GetDownloadUrlForLayer",
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
