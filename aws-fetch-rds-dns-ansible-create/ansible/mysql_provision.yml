@@ -1,0 +1,27 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - include_vars: vars.yml
+    - name: create database
+      mysql_db:
+        login_host: '{{ ansible_rds_hostname }}'
+        login_user: '{{ ansible_rds_username }}'
+        login_password: '{{ ansible_rds_password }}'
+        name: '{{ service_database }}'
+        state: present
+
+    - name: grant permissions to database
+      mysql_user:
+        login_host: '{{ ansible_rds_hostname }}'
+        login_user: '{{ ansible_rds_username }}'
+        login_password: '{{ ansible_rds_password }}'
+        name: '{{ item.username }}'
+        password: '{{ item.password }}'
+        priv: '{{ item.db }}.*:ALL'
+        host: '%'
+        state: present
+      loop:
+        - username: '{{ service_username }}'
+          db: '{{ service_database }}'
+          password: "{{ service_password }}"
