@@ -1,0 +1,43 @@
+[
+    {
+      "name": "${container_name}",
+      "image": "${image}",
+      "memoryReservation": ${reserved_task_memory},
+      "portMappings": [
+        {
+          "containerPort": ${container_port},
+          "hostPort": ${host_port}
+        }
+      ],
+      "environment": [
+        {
+          "name": "AWS_DEFAULT_REGION",
+          "value": "eu-west-1"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "SQS_ONE_QUEUE_NAME",
+          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/SQS_ONE_QUEUE_NAME"
+        },
+        {
+          "name": "SQS_ONE_QUEUE_ENDPOINT_URI",
+          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/SQS_ONE_QUEUE_ENDPOINT_URI"
+        },
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/SPRING_DATASOURCE_URL"
+        },
+        {
+          "name": "SPRING_DATASOURCE_USERNAME",
+          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/SPRING_DATASOURCE_USERNAME"
+        },
+        {
+          "name": "SPRING_DATASOURCE_PASSWORD",
+          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/SPRING_DATASOURCE_PASSWORD"
+        }
+      ],
+      "networkMode": "bridge",
+      "essential": true
+    }
+  ]
