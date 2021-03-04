@@ -2,7 +2,7 @@ Variables isn't supported for backend, see [this issue](https://github.com/hashi
 
 ```
 $ terraform init -backend=true \
-  -backend-config "bucket=$TF_VAR_tf_state_bucket" \
+  -backend-config "bucket=$TF_VAR_s3_state_bucket" \
   -backend-config "key=TF_VAR_service_name/$TF_VAR_environment_name/$TF_VAR_platform_type/terraform.tfstate" \
   -backend-config "dynamodb_table=$TF_VAR_dynamodb_state_table" \
   -backend-config "profile=$TF_VAR_aws_profile" \
@@ -65,7 +65,7 @@ Initialize again:
 
 ```
 $ terraform init -backend=true \
-  -backend-config "bucket=$TF_VAR_tf_state_bucket" \
+  -backend-config "bucket=$TF_VAR_s3_state_bucket" \
   -backend-config "key=TF_VAR_service_name/$TF_VAR_environment_name/$TF_VAR_platform_type/terraform.tfstate" \
   -backend-config "dynamodb_table=$TF_VAR_dynamodb_state_table" \
   -backend-config "profile=$TF_VAR_aws_profile" \
