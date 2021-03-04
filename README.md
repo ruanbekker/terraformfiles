@@ -7,5 +7,6 @@ Terraform Examples
 
 ## Examples
 
+- [Terraform Kitchen](https://github.com/codeaprendiz/terraform-kitchen)
 - [Building Repeatable Infrastructure with Terraform and Ansible on AWS](https://github.com/ernesen/Terraform-Ansible)
 - [Jamie Phillips Blog Posts](https://www.phillipsj.net/tags/terraform/)
