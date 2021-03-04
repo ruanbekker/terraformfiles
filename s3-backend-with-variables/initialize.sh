@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TF_VAR_tf_state_bucket=""
+TF_VAR_s3_state_bucket=""
 TF_VAR_service_name=""
 TF_VAR_platform_type=""
 TF_VAR_environment_name=""
