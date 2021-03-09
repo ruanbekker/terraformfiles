@@ -17,3 +17,7 @@ variable "lambda_handler" {
 variable "lambda_runtime" {
   default = "nodejs12.x"
 }
+
+variable "lambda_layer" {
+  default = "commonLibs"
+}
