@@ -1,0 +1,7 @@
+.terraform
+.terraform.lock.hcl
+*.zip
+terraform.tfstate
+terraform.tfstate.*
+build
+layers/*/*/node_modules
