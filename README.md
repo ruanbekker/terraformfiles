@@ -5,6 +5,10 @@ Terraform Examples
 
 - [Terraform Tips and Trics using loops, if-statements](https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9)
 
+## Learn Guides
+
+- [Hashicorp Terraform Modules](https://learn.hashicorp.com/collections/terraform/modules)
+
 ## Examples
 
 - [Terraform Kitchen](https://github.com/codeaprendiz/terraform-kitchen)
