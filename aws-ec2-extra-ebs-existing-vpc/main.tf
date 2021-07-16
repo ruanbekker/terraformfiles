@@ -13,23 +13,25 @@ data "aws_vpc" "default" {
   }
 }
 
-data "aws_subnet_ids" "private" {
-  vpc_id = data.aws_vpc.default.id
-
-  tags = {
-    Tier = "private"
-    Name = "main-private-1b"
+data "aws_availability_zones" "available" {
+  state = "available"
+  filter {
+    name   = "region-name"
+    values = [var.region]
   }
 }
 
-resource random_id index {
-  byte_length = 2
+resource "random_shuffle" "az" {
+  input        = data.aws_availability_zones.available.names
+  result_count = 1
 }
 
-locals {
-  subnet_ids_list = tolist(data.aws_subnet_ids.private.ids)
-  subnet_ids_random_index = random_id.index.dec % length(data.aws_subnet_ids.private.ids)
-  instance_subnet_id = local.subnet_ids_list[local.subnet_ids_random_index]
+data "aws_subnet" "private" {
+  vpc_id = data.aws_vpc.default.id
+  availability_zone = random_shuffle.az.result[0]
+  tags = {
+    Tier = "private"
+  }
 }
 
 data "aws_ami" "latest_ubuntu" {
@@ -58,7 +60,7 @@ data "aws_security_group" "remote_access" {
 }
 
 resource "aws_ebs_volume" "example" {
-  availability_zone = "eu-west-1b"
+  availability_zone = random_shuffle.az.result[0]
   size              = 30
   tags = {
     Name        = var.instance_name
@@ -70,7 +72,7 @@ resource "aws_ebs_volume" "example" {
 resource "aws_instance" "my_instance" {
   ami                         = data.aws_ami.latest_ubuntu.id
   instance_type               = "t2.micro"
-  subnet_id                   = local.instance_subnet_id
+  subnet_id                   = data.aws_subnet.private.id
   key_name                    = var.ssh_key_name["dev"]
   vpc_security_group_ids      = [data.aws_security_group.remote_access.id]
   associate_public_ip_address = false
