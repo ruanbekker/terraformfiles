@@ -3,6 +3,11 @@ variable "aws_region" {
    default = "eu-west-1"
 }
 
+variable "acm_domain_name" {
+   type    = string
+   default = "*.mydomain.com"
+}
+
 variable "public_network_tier" {
   type        = string
   default     = "public"
