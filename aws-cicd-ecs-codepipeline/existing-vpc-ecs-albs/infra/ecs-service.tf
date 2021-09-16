@@ -47,7 +47,7 @@ resource "aws_ecs_service" "service" {
   name            = "${var.environment_name}-${var.service_name}"
   task_definition = "${aws_ecs_task_definition.service.family}:${max("${aws_ecs_task_definition.service.revision}", "${data.aws_ecs_task_definition.service_current.revision}")}"
 
-  cluster         = data.aws_ecs_cluster.qa_payout.id
+  cluster         = data.aws_ecs_cluster.dev.id
   launch_type     = "EC2"
   desired_count   = var.container_desired_count
 
