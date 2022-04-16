@@ -1,5 +1,4 @@
 # required
-vpc = "vpc-063d7xxxxxxxxxxxx"
-keyname = "ireland-key"
-subnetid = "subnet-04b3xxxxxxxxxxxxx"
-
+vpc_id = "vpc-063d7xxxxxxxxxxxx"
+ssh_keyname = "ireland-key"
+subnet_id = "subnet-04b3xxxxxxxxxxxxx"
