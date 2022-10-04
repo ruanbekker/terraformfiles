@@ -29,6 +29,13 @@ resource "aws_key_pair" "terraform" {
   public_key = file(var.key_file)
 }
 
+# data "template_file" "userdata_script" {
+#   template = "${file("${path.module}/templates/userdata.tpl")}"
+#   vars = {
+#     local_user = "jammy"
+#   }
+# }
+
 resource "aws_instance" "ec2" {
   ami                         = data.aws_ami.latest_ubuntu.id
   instance_type               = var.instance_type
@@ -44,6 +51,7 @@ resource "aws_instance" "ec2" {
   }
 
   user_data_base64 = base64encode(file("${path.module}/templates/userdata.sh"))
+  # user_data_base64 = base64encode(data.template_file.userdata_script.rendered)
   
   root_block_device {
       volume_type           = "gp2"
