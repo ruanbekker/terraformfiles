@@ -23,7 +23,7 @@ data "vultr_plan" "small" {
 
 }
 
-resource "vultr_kubernetes" "k8" {
+resource "vultr_kubernetes" "this" {
     region  = data.vultr_region.city.id
     label   = var.name
     version = var.kubernetes_version

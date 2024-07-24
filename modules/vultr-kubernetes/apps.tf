@@ -24,7 +24,7 @@ resource "helm_release" "apps" {
   values           = each.value.values_file != null ? [file(each.value.values_file)] : []
   
   depends_on = [
-    vultr_kubernetes.k8
+    vultr_kubernetes.this
   ]
 
 }
