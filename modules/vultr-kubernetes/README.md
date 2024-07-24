@@ -39,7 +39,7 @@ curl -XGET -H "Authorization: Bearer ${VULTR_API_KEY}" "https://api.vultr.com/v2
 
 </details>
 
-## Deploy
+## Deploy the VULTR Kubernetes Cluster
 
 Deploy the cluster:
 
@@ -59,6 +59,55 @@ Access cluster:
 
 ```bash
 kubectl get nodes
+```
+
+## Deploy Apps to Kubernetes
+
+In `./example/main.tf` our module has support for deploying apps using a [`helm_release`](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) and we have 3 options:
+
+### Option 1: No apps
+
+This will only deploy the kubernetes cluster:
+
+```terraform
+module "kubernetes" {
+  source  = "../"
+  name              = "test-cluster"
+  kubernetes_version = "v1.29.4+1"
+}
+```
+
+### Option 2: App with default config
+
+This option we rely on the module to provide us with default values, which can be reviewed at `./variables.tf` under `default_apps`.
+
+```terraform
+module "kubernetes" {
+  source  = "../"
+  name              = "test-cluster"
+  kubernetes_version = "v1.29.4+1"
+  enabled_apps       = {
+    "nginx" = {}
+  }
+}
+```
+
+### Option 3: App with overrides
+
+In this option we can provide some or all overrides, the ones that we don't provide will be defaulted from the module:
+
+```terraform
+module "kubernetes" {
+  source  = "../"
+  name              = "test-cluster"
+  kubernetes_version = "v1.29.4+1"
+  enabled_apps       = {
+    "nginx" = {
+      namespace  = "dev"
+      values_file = "./templates/nginx.yaml"
+    }
+  }
+}
 ```
 
 ## Cleanup
